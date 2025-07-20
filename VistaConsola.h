@@ -9,11 +9,16 @@
 
 class VistaConsola : public IVistaJuego {
 private:
-    Tablero* tablero;  // Cambiado de ITablero* a Tablero*
+    Tablero* tablero; 
     std::vector<IPersonaje*> personajes;  // Vector para todos los personajes
 public:
-    VistaConsola(Tablero* tablero, const std::vector<IPersonaje*>& personajes);  // Constructor modificado
-    ~VistaConsola() override = default;
+    /*
+    Constructor modificado para recibir múltiples personajes
+    untero al tablero de juego
+    Vector con todos los personajes a mostrar
+     */
+    VistaConsola(Tablero* tablero, const std::vector<IPersonaje*>& personajes);
+    ~VistaConsola() override = default; // Polimorfismo por sobreescritura al destructor
 
     void mostrarTablero() override;
     void mostrarJuego() override;

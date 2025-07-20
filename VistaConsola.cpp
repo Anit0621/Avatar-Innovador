@@ -1,13 +1,13 @@
 #include "VistaConsola.h"
 #include "Camino.h"
 #include "Abismo.h"
-#include "AvatarCPU.h"
+#include "AvatarInnovador.h" 
 #include "Salida.h"
 #include <iostream>
-#include <cstdlib> // Para rand() y srand()
-#include <ctime>   // Para time()
+#include <cstdlib> // 
+#include <ctime>   // 
 #include <termios.h>
-#include <unistd.h> // Para STDIN_FILENO
+#include <unistd.h> // 
 
 VistaConsola::VistaConsola(Tablero* tablero, const std::vector<IPersonaje*>& personajes)
     : tablero(tablero), personajes(personajes) {}
@@ -28,6 +28,11 @@ void VistaConsola::mostrarTablero() {
     }
 }
 
+
+/*
+ Implementacion modificada de mostrarJuego() para soportar multiples personajes
+ Mantiene el formato visual original pero anade deteccion del AvatarInnovador
+ */
 void VistaConsola::mostrarJuego() {
     limpiarPantalla();
 
@@ -35,13 +40,14 @@ void VistaConsola::mostrarJuego() {
         for(int j = 0; j < tablero->getSize(); j++) { 
             bool personajeEncontrado = false;
             
-            // Verificar todos los personajes en esta posición
-            for(auto personaje : personajes) {
-                if(personaje->getPosicionFila() == i && personaje->getPosicionColumna() == j) {
-                    if(dynamic_cast<AvatarCPU*>(personaje)) {
-                        std::cout << "🟫🟫🟩🤖🟫🟫" << "\t";  // Avatar CPU
+            // Verificar todos los personajes en esta posicion
+            for(auto p : personajes) {
+                if(p->getPosicionFila() == i && p->getPosicionColumna() == j) {
+                    // Mostrar icono diferente según el tipo de avatar
+                    if(dynamic_cast<AvatarInnovador*>(p)) {
+                        std::cout << "🟫🟫🟩🤖🟫🟫" << "\t"; // AvatarInnovador
                     } else {
-                        std::cout << "🟫🟫🟩🧝🟫🟫" << "\t";  // Jugador
+                        std::cout << "🟫🟫🟩🧝🟫🟫" << "\t"; // Avatar normal
                     }
                     personajeEncontrado = true;
                     break;
@@ -67,7 +73,6 @@ void VistaConsola::mostrarJuego() {
         std::cout << "\n";
     }
 }
-
 void VistaConsola::limpiarPantalla() {
     #ifdef _WIN32
         system("cls"); // Comando para Windows
