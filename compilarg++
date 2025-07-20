@@ -1,0 +1,2 @@
+
+g++ -std=c++17 -Wall -o juego main.cpp Tablero.cpp Ficha.cpp Camino.cpp Abismo.cpp Salida.cpp Juego.cpp Avatar.cpp AvatarCPU.cpp Personaje.cpp LogicaDeMovimiento.cpp VistaConsola.cpp
